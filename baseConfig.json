@@ -1,0 +1,12 @@
+{
+    "api_key": "key",
+    "comment_conf": {
+        "user_id": "message",
+        "user_id_2": "message"
+    },
+    "self_id": "id",
+    "share_ids": [
+        "id1",
+        "id2"
+    ]
+}
