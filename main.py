@@ -1,6 +1,8 @@
 import json
-import requests
+
 import fb
+import requests
+
 
 class Spammer:
     """
@@ -22,12 +24,13 @@ class Spammer:
         self._graph = fb.graph.api(api_key)
         self._comment_conf = comment_conf
         self.share_ids = share_ids
-        self._request = "https://graph.facebook.com/v2.3/{0._own_id}/home?fields=from&format=json&access_token={0._api_key}".format(self)
+        self._request = "https://graph.facebook.com/v2.3/{0._own_id}/home?fields=from&format=json&access_token={0._api_key}".format(
+            self)
         self._current_request = self._request
 
-
     def do_comments(self, limit=250):
-        request = requests.get("{0._current_request}&limit={1}".format(self, limit))
+        request = requests.get(
+            "{0._current_request}&limit={1}".format(self, limit))
         if not request.status_code == 200:
             raise Exception("Requests didn't get 200 response")
         data = request.json()
@@ -36,14 +39,17 @@ class Spammer:
         for i in data["data"]:
             user_id = i["from"]["id"]
             if user_id in self._comment_conf:
-                print("Commenting on message from: {}, with: {}".format(i["from"]["name"], self._comment_conf[user_id]))
-                self._graph.publish(cat="comments", id=i["id"], message=self._comment_conf[user_id])
+                print("Commenting on message from: {}, with: {}".format(
+                    i["from"]["name"], self._comment_conf[user_id]))
+                self._graph.publish(cat="comments", id=i[
+                                    "id"], message=self._comment_conf[user_id])
 
 
 with open("config.json") as jsonFile:
     config = json.load(jsonFile)
 
 
-mySpammer = Spammer(config["self_id"], config["api_key"], config["comment_conf"], config["share_ids"])
+mySpammer = Spammer(config["self_id"], config["api_key"], config[
+                    "comment_conf"], config["share_ids"])
 
 mySpammer.do_comments()
