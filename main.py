@@ -45,11 +45,13 @@ class Spammer:
                                     "id"], message=self._comment_conf[user_id])
 
 
-with open("config.json") as jsonFile:
-    config = json.load(jsonFile)
+if __name__ == "__main__":
+
+    with open("config.json") as jsonFile:
+        config = json.load(jsonFile)
 
 
-mySpammer = Spammer(config["self_id"], config["api_key"], config[
-                    "comment_conf"], config["share_ids"])
+    mySpammer = Spammer(config["self_id"], config["api_key"], config[
+                        "comment_conf"], config["share_ids"])
 
-mySpammer.do_comments()
+    mySpammer.do_comments()
