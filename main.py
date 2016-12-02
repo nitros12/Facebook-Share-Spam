@@ -25,7 +25,7 @@ class Spammer:
         self._api_key = api_key
         self._graph = fb.graph.api(api_key)
         self._comment_conf = comment_conf
-        self._share_ids = share_ids
+        self._share_ids = {i:"" for i in share_ids}
         self._request = "https://graph.facebook.com/v2.3/{0._own_id}/home?fields=from&format=json&access_token={0._api_key}".format(
             self)
         self._current_request = self._request
@@ -75,5 +75,5 @@ if __name__ == "__main__":
     mySpammer = Spammer(config["self_id"], config["api_key"], config[
                         "comment_conf"], config["share_ids"])
 
-    #mySpammer.do_comments()
+    mySpammer.do_comments()
     mySpammer.do_shares()
